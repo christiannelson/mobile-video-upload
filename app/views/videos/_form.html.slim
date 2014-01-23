@@ -1,0 +1,41 @@
+css:
+  .btn-file {
+      position: relative;
+      overflow: hidden;
+  }
+  .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 999px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: red;
+      cursor: inherit;
+      display: block;
+  }
+
+= s3_uploader_form id: 's3-uploader', callback_url: videos_url, callback_method: 'POST', callback_param: 'video[video_url]' do
+  span.btn.btn-primary.btn-file
+    ' Select Video
+    = file_field_tag :file, multiple: false, accept: 'video/*', capture: 'camcorder'
+
+br
+
+div.upload.js-progress-bars
+  div.progress
+    div.bar.progress-bar role='progressbar'
+
+/= simple_form_for(@video) do |f|
+/  = f.error_notification
+/
+/  = f.input :media, as: :file, input_html: { accept: 'video/*', capture: 'camcorder' }
+/
+/  = button_tag(type: 'submit', class: 'btn btn-primary') do
+/    = text_with_icon("#{btn_action_prefix} Video", action_icon_name)
+/  '
+/  = link_to text_with_icon('Back', 'chevron-left'), videos_path, class: 'btn btn-default'
+/

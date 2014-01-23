@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'coffee-rails'
 gem 'turbolinks'
 gem 'simple_form', '~> 3.0'
+gem 's3_direct_upload'
 gem 'uglifier'
 
 gem 'awesome_print'

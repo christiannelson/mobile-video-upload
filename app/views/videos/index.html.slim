@@ -1,0 +1,30 @@
+div.page-header
+  h1 Listing videos
+
+table.table.table-striped
+  thead
+    tr
+      th ID
+      th URL
+      th Type
+      th Size
+      th Actions
+
+  tbody
+  - @videos.each do |video|
+    tr
+      /td= link_to_if can?(:show, video), video.id, video_path(video)
+      td= link_to video.id, video_path(video)
+      td= video.video_url
+      td= video.file_type
+      td= video.file_size && number_to_human_size(video.file_size)
+      td
+        /- if can? :edit, video
+        = link_to text_with_icon('Edit', 'edit'), edit_video_path(video), class: 'btn btn-default btn-xs'
+        '
+        /- if can? :destroy, video
+        = link_to text_with_icon('Destroy', 'remove'), video_path(video), \
+                  method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-default btn-xs btn-danger'
+
+/- if can? :create, Video
+= link_to text_with_icon('New Video', 'plus'), new_video_path, class: 'btn btn-primary'

@@ -1,0 +1,20 @@
+.page-header
+  h1 Video
+
+dl
+  dt URL
+  dd= @video.video_url
+  dt File Type
+  dd= @video.file_type
+  dt File Size
+  dd= number_to_human_size(@video.file_size)
+
+/- if can?(:edit, @video)
+= link_to text_with_icon('Edit', 'edit'), edit_video_path(@video), class: 'btn btn-default'
+'
+= link_to text_with_icon('Back', 'chevron-left'), videos_path, class: 'btn btn-default'
+
+/- if can?(:destroy, @video)
+'
+= link_to text_with_icon('Destroy', 'remove'), video_path(@video), \
+          method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'

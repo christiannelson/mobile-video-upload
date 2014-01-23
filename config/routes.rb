@@ -1,5 +1,7 @@
 MobileVideoUpload::Application.routes.draw do
 
-  root to: 'pages#root'
+  root to: 'videos#index'
+
+  resources :videos
 
 end
