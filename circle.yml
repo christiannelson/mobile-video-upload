@@ -5,14 +5,8 @@ test:
     - bundle exec guard-jasmine
 
 deployment:
-  acceptance:
-    branch: master
-    commands:
-      - ./bin/deploy.sh mobile-video-upload-acceptance:
-          timeout: 360
-
   production:
-    branch: production 
+    branch: master 
     commands:
       - ./bin/deploy.sh mobile-video-upload:
           timeout: 360
