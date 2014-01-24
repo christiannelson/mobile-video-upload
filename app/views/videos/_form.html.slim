@@ -18,7 +18,7 @@ css:
       display: block;
   }
 
-= s3_uploader_form id: 's3-uploader', callback_url: videos_url, callback_method: 'POST', callback_param: 'video[video_url]' do
+= s3_uploader_form id: 's3-uploader', callback_url: upload_completed_videos_url, callback_method: 'POST', callback_param: 'video[video_url]' do
   span.btn.btn-primary.btn-file
     ' Select Video
     = file_field_tag :file, multiple: false, accept: 'video/*', capture: 'camcorder'

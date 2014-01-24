@@ -4,9 +4,14 @@
 
 load_page_specific_javascript = ->
   $('#s3-uploader').S3Uploader
-    progress_bar_target: $('.js-progress-bars')
+    progress_bar_target:           $('.js-progress-bars')
     remove_completed_progress_bar: false
-    allow_multiple_files: false
+    allow_multiple_files:          false
+    before_add: ->
+      $('.btn-file').attr('disabled', 'disabled');
+      $.post '/videos/upload_started', (data) ->
+        $('#s3-uploader').S3Uploader().additional_data({ video_id: data.video_id })
+
 
 jQuery ->
   $(document).ready(load_page_specific_javascript)

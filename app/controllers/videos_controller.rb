@@ -8,24 +8,43 @@ class VideosController < ApplicationController
   def show
   end
 
+  def upload_started
+    @video = Video.new
+    @video.state = :pending
+    @video.upload_started_at = Time.current
+    @video.save!
+    render json: { video_id: @video.id }
+  end
+
+  def upload_completed
+    @video = Video.find(params[:video_id])
+    @video.update(video_params)
+    @video.state = :uploaded
+    @video.upload_completed_at = Time.current
+    @video.file_type = params[:filetype]
+    @video.file_size = params[:filesize]
+    @video.save!
+    #render json: { success: true }
+    flash[:notice] = 'Uploaded successfully!'
+    flash.keep(:notice)
+    render js: "window.location = '#{video_path(@video)}'"
+  end
+
   def new
     @video = Video.new
   end
 
-  def edit
-  end
-
   def create
-    @video = Video.new(video_params) do |video|
-      video.file_type = params[:filetype]
-      video.file_size = params[:filesize]
-    end
+    @video = Video.new(video_params)
 
     if @video.save
       redirect_to @video, notice: 'Video was successfully created.'
     else
       render action: 'new'
     end
+  end
+
+  def edit
   end
 
   def update
@@ -49,7 +68,6 @@ class VideosController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def video_params
-      #params.permit(:filesize, :filetype)
       params.require(:video).permit(:video_url)
     end
 end
